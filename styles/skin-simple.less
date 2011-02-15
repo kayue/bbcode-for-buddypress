@@ -2,49 +2,41 @@
 // markItUp! Universal MarkUp Engine, JQuery plugin
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
-.markItUp * {
-	margin:0px; padding:0px;
-	outline:none;
+.markItUp .markItUpContainer {
+    .markItUpHeader {
+        > * {
+            margin:0px; padding:0px;
+            outline:none;
+        }
+    }
+    
+    .markItUpEditor {
+    	overflow:auto;
+    }
+    
+    .markItUpFooter {
+    	width:100%;
+    }
+    
+    .markItUpResizeHandle {
+    	overflow:hidden;
+    	width:22px; height:5px;
+    	margin-left:auto;
+    	margin-right:auto;
+    	background-image:url(../images/handle.png);
+    	cursor:n-resize;
+    }
+    
+    .markItUpPreviewFrame	{
+    	overflow:auto;
+    	background-color:#FFF;
+    	width:99.9%;
+    	height:300px;
+    	margin:5px 0;
+    	border: none;
+    }
 }
-.markItUp a:link,
-.markItUp a:visited {
-	color:#000;
-	text-decoration:none;
-}
-.markItUp  {
-	width:700px;
-	margin:5px 0 5px 0;
-}
-.markItUpContainer  {
-	font:11px Verdana, Arial, Helvetica, sans-serif;
-}
-.markItUpEditor {
-	font:12px 'Courier New', Courier, monospace;
-	padding:5px;
-	width:690px;
-	height:320px;
-	clear:both;
-	line-height:18px;
-	overflow:auto;
-}
-.markItUpPreviewFrame	{
-	overflow:auto;
-	background-color:#FFF;
-	width:99.9%;
-	height:300px;
-	margin:5px 0;
-}
-.markItUpFooter {
-	width:100%;
-}
-.markItUpResizeHandle {
-	overflow:hidden;
-	width:22px; height:5px;
-	margin-left:auto;
-	margin-right:auto;
-	background-image:url(../images/handle.png);
-	cursor:n-resize;
-}
+
 /***************************************************************************************/
 /* first row of buttons */
 .markItUpHeader ul li	{
@@ -62,6 +54,7 @@
 .markItUpHeader ul .markItUpDropMenu li {
 	margin-right:0px;
 }
+
 /* next rows of buttons */
 .markItUpHeader ul ul {
 	display:none;
@@ -88,6 +81,7 @@
 	width:auto; height:1px;
 	margin:0px;
 }
+
 /* next rows of buttons */
 .markItUpHeader ul ul ul {
 	position:absolute;
@@ -113,6 +107,4 @@
 	background-position:2px 50%;
 }
 .markItUpHeader ul ul a:hover  {
-	color:#FFF;
-	background-color:#000;
 }
