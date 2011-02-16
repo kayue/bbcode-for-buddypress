@@ -5,15 +5,28 @@ Version:      1.0.1
 Author:       Ka Yue Yeung
 Author URI:   http://ka-yue.com/
 */
+require_once("bbcode-parser.php");
 
-class BBCodeForBuddypress
+class BBCode_For_Buddypress_Plugin
 {
-    
     function __construct() 
     {
-        add_action("wp_print_scripts", array(&$this, "load_scripts") );
-        add_action("wp_print_styles", array(&$this, "load_stylesheets") );
-        add_action("wp_footer", array(&$this, "javascript_variables") );
+        add_action("wp_print_scripts", array(__CLASS__, "load_scripts"));
+        add_action("wp_print_styles", array(__CLASS__, "load_stylesheets"));
+        add_action("wp_footer", array(__CLASS__, "javascript_variables"));
+        
+        // add bbcode content filter
+        add_filter('bp_get_activity_content_body', array(__CLASS__, "bbcode_content_filter"), 9);
+        add_filter('bp_get_activity_content', array(__CLASS__, "bbcode_content_filter"), 9);
+        add_filter('bp_get_the_topic_post_content', array(__CLASS__, "bbcode_content_filter"), 9);
+        
+        /*
+        add_action('groups_forum_new_topic_after', 'bbcode_buddypress_form');
+        add_action('groups_forum_new_reply_after', 'bbcode_buddypress_form');
+        add_action('groups_forum_edit_post_after', 'bbcode_buddypress_form');
+        add_action('bp_after_group_forum_post_new', 'bbcode_buddypress_form');
+        add_action('bp_group_after_edit_forum_post', 'bbcode_buddypress_form');
+        */
     }
     
     /**
@@ -68,27 +81,11 @@ class BBCodeForBuddypress
     	</script>
     <?
     }
+    
+    static function bbcode_content_filter($content) {
+        return BBCode2Html($content);
+    }
+    
 }
 
-new BBCodeForBuddypress();
-
-/**
- * Decode BBcode in activity and post content
- */
-function bbcode_buddypress_content($content)
-{
-    // load bbcode parser
-    require_once("bbcode-parser.php");
-    return BBCode2Html($content);
-}
-add_filter('bp_get_activity_content_body','bbcode_buddypress_content', 9);
-add_filter('bp_get_activity_content','bbcode_buddypress_content', 9);
-add_filter('bp_get_the_topic_post_content','bbcode_buddypress_content', 9);
-
-/*
-add_action('groups_forum_new_topic_after', 'bbcode_buddypress_form');
-add_action('groups_forum_new_reply_after', 'bbcode_buddypress_form');
-add_action('groups_forum_edit_post_after', 'bbcode_buddypress_form');
-add_action('bp_after_group_forum_post_new', 'bbcode_buddypress_form');
-add_action('bp_group_after_edit_forum_post', 'bbcode_buddypress_form');
-*/
+new BBCode_For_Buddypress_Plugin();
