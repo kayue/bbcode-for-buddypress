@@ -87,5 +87,5 @@ class BBCode_For_Buddypress_Plugin
     }
     
 }
-
-new BBCode_For_Buddypress_Plugin();
+if( function_exists("bp_is_groups_component") )
+    new BBCode_For_Buddypress_Plugin();
